@@ -15,4 +15,7 @@ RUN ["conda","run","-n","views2","pip","install","/VCLI"]
 RUN ["mkdir","-p","ViEWS2/storage/cache"]
 ENV VIEWS_CACHE=1
 
-ENTRYPOINT ["conda","run","-n","views2","views"]
+RUN printf '#!/bin/bash\nconda run -n views2 views $@' > /bin/views
+RUN chmod +x /bin/views
+
+ENTRYPOINT ["views"]
